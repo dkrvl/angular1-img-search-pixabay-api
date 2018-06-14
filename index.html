@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Theme Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Bootstrap theme -->
+    <link href="vendor/lib/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" />
+    
+
+    <!-- Custom styles for this template -->
+    <link href="css/mytheme.css" rel="stylesheet" />
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="vendor/lib/angular/angular.min.js"></script>
+    <script src="app/app.js"></script>
+</head>
+
+<body ng-app="AngularTest">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Bootstrap theme</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#about">About</a></li> 
+                    <li><a href="#contact">Contact</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
+    </nav>
+
+    <div class="container theme-showcase" role="main" ng-controller="mainCtrl">
+        <div class="row">
+            <div class="col-md-12 form-inline">
+                <div class="form-group">
+                    <label class="sr-only" for="form-group-input">My label</label>
+                    <input type="text" class="form-control" id="form-group-input" placeholder="Search Images" ng-model="searchItems1" />
+                    </div>
+                <div class="form-group">
+                    <select class="form-control" id="test" ng-model="category" ng-change="categoryVal()">
+                        <option value="{{option}}" ng-repeat="option in categoryOption">{{option}}</option>
+                    </select>
+                    </div>
+                <div class="form-group">
+                    <select class="form-control" ng-model="orientation">
+                        <option value="{{option}}" ng-repeat="option in orientationOption">{{option}}</option>
+                    </select>
+                    </div>
+                <div class="form-group">
+                    <select class="form-control" ng-model="imageType">
+                        <option value="{{option}}" ng-repeat="option in imageTypeOption">{{option}}</option>
+                    </select>
+                    <button class="btn btn-primary" type="button" ng-click="searchImages()">SUBMIT</button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="row" ng-controller="gallaryCtrl">
+            {{multi}}
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="control-label" for="form-group-input" ng-bind="searchItems"></label>
+                    <label class="control-label sr-only" for="form-group-input" ng-bind="SearchURL"></label>
+
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-2 col-xs-6" ng-repeat="images in myImages" style="overflow:hidden; margin:15px auto; ">
+                <div class="" ng-mouseenter="showTags()" ng-mouseleave="hideTags()">
+                    <div ng-show="test" style="position:absolute; bottom:0; left:15px; width:calc(100% - 30px); background:rgba(0,0,0,0.5); color:#fff; padding:15px;">
+                        <span>Views: {{images.views}}</span>
+                        <span>Downloads: {{images.downloads}}</span>
+                    </div>
+                    <img ng-src="{{images.previewURL}}" style="width:auto;  min-width:100%; height:200px; background:#777;" alt="" ng-click="doneme();" />
+                    <div ng-show="newLayer" style="position:fixed; top:50%; left:50%; max-height:90%; transform:translate(-50%, -50%); border:2px solid #333; z-index:5000; overflow:auto;">
+                        <span class="close" ng-click="doneme1();" style="position:absolute; top:5px; right:5px; transition:all 3000ms linear; border:1px solid black; background:#fff; color:#000; opacity:1; border-radius:30px; padding:5px 6px; width:25px; height:25px; font-size:16px;">X</span>
+                        <img ng-src="{{images.webformatURL}}" style="background:#777;" class="img-responsive" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- /container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="vendor/lib/jquery/dist/jquery.min.js"></script>
+    <script src="vendor/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="app/gallary/gallaryService.js"></script>
+    <script src="app/gallary/gallaryCtrl.js"></script>
+</body>
+</html>
